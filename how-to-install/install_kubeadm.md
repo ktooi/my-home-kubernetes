@@ -18,6 +18,8 @@
 
     ```shell-session
     sudo swapoff -a
+    sudo sed -i 's/^\(.*\tswap\t\)/# \1/' /etc/fstab
+    sudo rm /swap.img
     ```
 3.  kubeadm 初期化。
 
