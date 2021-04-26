@@ -14,14 +14,25 @@
     EOF
     sudo sysctl --system
     ```
-2.  Swap 無効化。
+2.  kubeadm インストール。
+
+    ```shell-session
+    sudo apt-get update
+    sudo apt-get install -y apt-transport-https ca-certificates curl
+    sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+    sudo apt-get update
+    sudo apt-get install -y kubelet kubeadm kubectl
+    sudo apt-mark hold kubelet kubeadm kubectl
+    ```
+3.  Swap 無効化。
 
     ```shell-session
     sudo swapoff -a
     sudo sed -i 's/^\(.*\tswap\t\)/# \1/' /etc/fstab
     sudo rm /swap.img
     ```
-3.  kubeadm 初期化。
+4.  kubeadm 初期化。
 
     ```shell-session
     sudo kubeadm init --cri-socket "/var/run/crio/crio.sock"
