@@ -45,3 +45,6 @@ Password:
 'admin:login' logged in successfully
 Context '192.168.0.18' updated
 ```
+
+* [Getting Started - Argo CD - Declarative GitOps CD for Kubernetes](https://argo-cd.readthedocs.io/en/stable/getting_started/)
+* [Installation - Argo CD - Declarative GitOps CD for Kubernetes](https://argo-cd.readthedocs.io/en/stable/cli_installation/)
