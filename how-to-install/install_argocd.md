@@ -10,9 +10,9 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 ArgoCD CLI をインストールします。
 
 ```shell-session
-VERSION=v2.2.5 # Select desired TAG from https://github.com/argoproj/argo-cd/releases
-curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/download/$VERSION/argocd-linux-amd64
-chmod +x /usr/local/bin/argocd
+VERSION=v2.3.3 # Select desired TAG from https://github.com/argoproj/argo-cd/releases
+sudo curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/download/$VERSION/argocd-linux-amd64
+sudo chmod +x /usr/local/bin/argocd
 ```
 
 ArgoCD にアクセスできるように、 LoadBalancer に変更します。
@@ -32,18 +32,24 @@ argocd-server   LoadBalancer   10.106.105.3   192.168.0.18   80:31619/TCP,443:31
 ArgoCD のパスワードを確認します。
 
 ```shell-session
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo
+ARGOCD_PASS=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+echo $ARGOCD_PASS
 ```
 
 ArgoCD にログインします。
 
 ```shell-session
-$ argocd login 192.168.0.18
-WARNING: server certificate had error: x509: cannot validate certificate for 192.168.0.18 because it doesn't contain any IP SANs. Proceed insecurely (y/n)? y
-Username: admin
-Password: 
+$ ARGOCD_IP=$(kubectl get services -n argocd -o jsonpath="{.items[*].status.loadBalancer.ingress[*].ip}")
+$ argocd login $ARGOCD_IP --username admin --password $ARGOCD_PASS --insecure
 'admin:login' logged in successfully
 Context '192.168.0.18' updated
+```
+
+Repository を追加します。
+
+```shell-session
+$ argocd repo add git@github.com:ktooi/argocd-apps.git --ssh-private-key-path ~/.ssh/id_ed25519_argocd
+Repository 'git@github.com:ktooi/argocd-apps.git' added
 ```
 
 * [Getting Started - Argo CD - Declarative GitOps CD for Kubernetes](https://argo-cd.readthedocs.io/en/stable/getting_started/)
