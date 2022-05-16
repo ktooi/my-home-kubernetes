@@ -9,7 +9,7 @@
 5. [Setup Worker Node](./setup_workernode.md)
 6. [Install Metrics Server](./install_metrics_server.md)
 7. [Install metallb](./install_metallb.md)
-8. [Install Kubernetes Dashboard](./install_kubernetes_dashboard.md)
+8. [Install Kubernetes Dashboard](./install_k8s_dashboard.md)
 9. [Install argocd](./install_argocd.md)
 
 ## Upgrade
