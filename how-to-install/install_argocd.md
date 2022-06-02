@@ -32,8 +32,7 @@ argocd-server   LoadBalancer   10.106.105.3   192.168.0.18   80:31619/TCP,443:31
 ArgoCD のパスワードを確認します。
 
 ```shell-session
-ARGOCD_PASS=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-echo $ARGOCD_PASS
+ARGOCD_PASS=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d) && echo $ARGOCD_PASS
 ```
 
 ArgoCD にログインします。
