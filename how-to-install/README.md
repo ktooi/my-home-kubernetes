@@ -11,6 +11,7 @@
 7. [Install metallb](./install_metallb.md)
 8. [Install Kubernetes Dashboard](./install_k8s_dashboard.md)
 9. [Install argocd](./install_argocd.md)
+10. [Install kube-prometheus](./install_kube_prometheus.md)
 
 ## Upgrade
 
